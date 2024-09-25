@@ -3,10 +3,10 @@ const Router = express.Router;
 const adminRouter = Router();
 const { adminModel, CourseModel } = require("../db.js");
 const bcrypt = require("bcrypt");
-const JWT_ADMIN_PASSWORD = "adminsecret";
 const jwt = require("jsonwebtoken");
 const { adminMiddleware } = require("../middleware/admin");
 const mongoose = require("mongoose");
+const { JWT_ADMIN_PASSWORD } = require("../config");
 // bcrypt, zod, jsonwebtoken
 
 adminRouter.post("/signup", async function (req, res) {
@@ -51,7 +51,6 @@ adminRouter.post("/signin", async function (req, res) {
 });
 adminRouter.post("/course", adminMiddleware, async function (req, res) {
   const adminId = req.adminId;
-  console.log(adminId);
   const { title, description, price, image } = req.body;
   const course = await CourseModel.create({
     title,
