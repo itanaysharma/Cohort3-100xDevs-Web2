@@ -25,10 +25,12 @@ adminRouter.post("/signup", async function (req, res) {
   // An alternative way of accessing request body data would be:
   // const firstName = req.body.firstName;
 
+  //hassing up the password using bcrypt and salt
+  const hashedPassword = await bcrypt.hash(password, 10);
   // Creating a new admin record in the MongoDB admin collection
   await adminModel.create({
     email,
-    password,
+    password: hashedPassword, //hashed password is saved in the db
     firstName,
     lastName,
   });
@@ -45,22 +47,30 @@ adminRouter.post("/signin", async function (req, res) {
   // Finding admin by email and password
   const admin = await adminModel.findOne({
     email,
-    password,
   });
 
   // If admin exists, sign and return a JWT token
   if (admin) {
-    const token = jwt.sign(
-      {
-        id: admin._id,
-      },
-      JWT_ADMIN_PASSWORD
-    );
+    //compring the hashed password with the passed password using bcrypt
+    const passwordMatch = bcrypt.compare(password, admin.password);
+    if (passwordMatch) {
+      const token = jwt.sign(
+        {
+          id: admin._id,
+        },
+        JWT_ADMIN_PASSWORD
+      );
+      res.json({
+        token: token,
+      });
+    } else {
+      // Respond with a 403 error if credentials are incorrect
+      res.status(403).json({
+        message: "Incorrect credentials",
+      });
 
-    // Responding with the token
-    res.json({
-      token: token,
-    });
+      // Responding with the token
+    }
   } else {
     // Respond with a 403 error if credentials are incorrect
     res.status(403).json({
