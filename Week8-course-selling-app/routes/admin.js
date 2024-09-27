@@ -133,7 +133,7 @@ adminRouter.post("/course", adminMiddleware, async function (req, res) {
     description,
     price,
     image,
-    creatorId: adminId,
+    creatorId: adminId, //creatorId is adminId
   });
 
   // Respond with success message and created course ID
