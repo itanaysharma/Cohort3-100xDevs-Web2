@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div>
-      ALLEN | CLASS 11 | CLASS 12
+      {/* bad way of routing as it will reload everytime */}
+      <a href="/">ALLEN</a>| CLASS 11 | CLASS 12
       <BrowserRouter>
         <Routes>
           <Route
