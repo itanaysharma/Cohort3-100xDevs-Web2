@@ -11,7 +11,15 @@ function App() {
         height: "100vh",
       }}
     >
-      <PostComponent></PostComponent>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div>
+          <PostComponent></PostComponent>
+          <br></br>
+          <PostComponent></PostComponent>
+          <br></br>
+          <PostComponent></PostComponent>
+        </div>
+      </div>
     </div>
   );
 }
