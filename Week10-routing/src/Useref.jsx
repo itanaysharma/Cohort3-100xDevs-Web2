@@ -28,19 +28,18 @@ function UseRefUse1() {
 }
 
 function UseRefUse2() {
-  //Ugly approach because the setIntervalId which is not the part of DOM gets rerender after every update which is unnecessary
+  //Approach using useRef. Now using this we are not using useState for interval ID so we have reduced one renderring
   const [time, setTime] = useState(0);
-  const [intervalId, setIntervalId] = useState(null);
+  const intervalId = useRef(null);
   function startTime() {
-    if (intervalId !== null) return;
-    const newIntervalId = setInterval(() => {
+    if (intervalId.current !== null) return;
+    intervalId.current = setInterval(() => {
       setTime((time) => time + 1);
     }, 1000);
-    setIntervalId(newIntervalId);
   }
   function stopTime() {
-    clearInterval(intervalId);
-    setIntervalId(null);
+    clearInterval(intervalId.current);
+    intervalId.current = null;
   }
   return (
     <div>
