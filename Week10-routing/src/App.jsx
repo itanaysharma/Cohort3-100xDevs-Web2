@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
+import { UseRefUse1 } from "./Useref";
 function App() {
   return (
     <div>
@@ -19,9 +20,11 @@ function App() {
               element={<Class12Program />}
             />
             <Route path="/" element={<Landing />} />
+
             {/* If a route is chosen that is not defined */}
             <Route path="*" element={<NoPage />}></Route>
           </Route>
+          <Route path="/useRef1" element={<UseRefUse1></UseRefUse1>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
