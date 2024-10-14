@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Link, Outlet } from "react-router-dom";
-import { UseRefUse1 } from "./Useref";
+import { UseRefUse1, UseRefUse2 } from "./Useref";
 function App() {
   return (
     <div>
@@ -25,6 +25,7 @@ function App() {
             <Route path="*" element={<NoPage />}></Route>
           </Route>
           <Route path="/useRef1" element={<UseRefUse1></UseRefUse1>}></Route>
+          <Route path="/useRef2" element={<UseRefUse2></UseRefUse2>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,6 +1,6 @@
 // ### What is `useRef`?
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 // In React, `useRef` is a hook that provides a way to create a **reference** to a value or a DOM element that persists across renders but **does not trigger a re-render** when the value changes.
 
@@ -26,4 +26,28 @@ function UseRefUse1() {
     </div>
   );
 }
-export { UseRefUse1 };
+
+function UseRefUse2() {
+  //Ugly approach because the setIntervalId which is not the part of DOM gets rerender after every update which is unnecessary
+  const [time, setTime] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
+  function startTime() {
+    if (intervalId !== null) return;
+    const newIntervalId = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 1000);
+    setIntervalId(newIntervalId);
+  }
+  function stopTime() {
+    clearInterval(intervalId);
+    setIntervalId(null);
+  }
+  return (
+    <div>
+      <h1>Time: {time}</h1>
+      <button onClick={startTime}>Start</button>
+      <button onClick={stopTime}>Stop</button>
+    </div>
+  );
+}
+export { UseRefUse1, UseRefUse2 };
