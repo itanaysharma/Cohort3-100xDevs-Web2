@@ -1,28 +1,35 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
+
+const BulbContext = createContext();
 
 function App() {
   //Example of prop drilling
   const [bulbOn, setBulbOn] = useState(true);
   return (
     <div>
-      <LightBulb bulbOn={bulbOn} setBulbOn={setBulbOn} />
+      <BulbContext.Provider value={{ bulbOn: bulbOn, setBulbOn: setBulbOn }}>
+        <LightBulb />
+      </BulbContext.Provider>
     </div>
   );
 }
 
-function LightBulb({ bulbOn, setBulbOn }) {
+function LightBulb() {
   return (
     <div>
-      <BulbState bulbOn={bulbOn} />
-      <ToggleBulbState setBulbOn={setBulbOn} bulbOn={bulbOn} />
+      <BulbState />
+      <ToggleBulbState />
     </div>
   );
 }
 
-function BulbState({ bulbOn }) {
+function BulbState() {
+  const { bulbOn } = useContext(BulbContext);
   return <div>{bulbOn ? " Bulb on" : "Bulb Off"}</div>;
 }
-function ToggleBulbState({ bulbOn, setBulbOn }) {
+function ToggleBulbState() {
+  const { bulbOn } = useContext(BulbContext);
+  const { setBulbOn } = useContext(BulbContext);
   function toggle() {
     setBulbOn(!bulbOn);
   }
