@@ -2,14 +2,23 @@ import { createContext, useContext, useState } from "react";
 
 const BulbContext = createContext();
 
-function App() {
-  //Example of prop drilling
+function BulbProvider({ children }) {
   const [bulbOn, setBulbOn] = useState(true);
   return (
+    <BulbContext.Provider value={{ bulbOn: bulbOn, setBulbOn: setBulbOn }}>
+      {children}
+    </BulbContext.Provider>
+  );
+}
+
+function App() {
+  //Example of prop drilling
+
+  return (
     <div>
-      <BulbContext.Provider value={{ bulbOn: bulbOn, setBulbOn: setBulbOn }}>
+      <BulbProvider>
         <LightBulb />
-      </BulbContext.Provider>
+      </BulbProvider>
     </div>
   );
 }
