@@ -1,15 +1,16 @@
 import { useState } from "react";
 
 function App() {
+  //Example of prop drilling
+  const [bulbOn, setBulbOn] = useState(true);
   return (
     <div>
-      <LightBulb />
+      <LightBulb bulbOn={bulbOn} setBulbOn={setBulbOn} />
     </div>
   );
 }
 
-function LightBulb() {
-  const [bulbOn, setBulbOn] = useState(true);
+function LightBulb({ bulbOn, setBulbOn }) {
   return (
     <div>
       <BulbState bulbOn={bulbOn} />
