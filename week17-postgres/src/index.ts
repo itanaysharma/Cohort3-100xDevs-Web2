@@ -1,4 +1,7 @@
+import express from "express"
 import { Client } from "pg";
+const app = express()
+app.use(express.json())
 const pgClient = new Client({
   user: "postgres",
   password: "admin",
@@ -6,9 +9,12 @@ const pgClient = new Client({
   host: "localhost",
   database: "testingnew",
 });
-async function main() {
-  await pgClient.connect();
-  const response = await pgClient.query("Select * FROM users");
-  console.log(response.rows);
-}
-main();
+  pgClient.connect();
+
+  app.post("/signup", async (req, res)=>{
+    const username = req.body.username;
+    const password = req.body.password
+    const email = req.body.email
+    const city = req.body.city
+  })
+  
