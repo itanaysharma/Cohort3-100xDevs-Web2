@@ -2,7 +2,7 @@ import { WebSocketServer } from "ws";
 
 const wss = new WebSocketServer({ port: 8080 });
 //@ts-ignore
-let allSockets = [];
+let allSockets: any[] = [];
 wss.on("connection", function (socket) {
   allSockets.push(socket);
   console.log("User connected # ");
