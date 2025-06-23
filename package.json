@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
   }
 }
