@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export function GET() {
   return NextResponse.json({
-    user: "Tanay",
+    name: "Tanay",
     email: "tanay@gcom.com",
   });
 }

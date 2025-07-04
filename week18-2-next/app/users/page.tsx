@@ -1,8 +1,9 @@
 import axios from "axios";
 export default async function User() {
   const response = await axios.get<{ name: string; email: string }>(
-    "https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details"
+    "http://localhost:3000/api/v1/user/details"
   );
+  await new Promise((r) => setTimeout(r, 1000)); // You can set delay by this
   const data = response.data;
   console.log("hi");
   return (
