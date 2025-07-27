@@ -7,21 +7,34 @@ import {
   SigninSchema,
   CreateRoomSchema,
 } from "@repo/common/types";
+import { prismaClient } from "@repo/db/client";
 const app = express();
-
-app.post("/signup", (req, res) => {
+app.use(express.json());
+app.post("/signup", async (req, res) => {
   // db call
-  const data = CreateUserSchema.safeParse(req.body);
-  if (!data.success) {
+  const parsedData = CreateUserSchema.safeParse(req.body);
+  if (!parsedData.success) {
     res.json({
-      message: "Incorrect input",
+      message: "Incorrect inputs",
     });
     return;
   }
-
-  res.json({
-    userId: 3,
-  });
+  try {
+    const user = await prismaClient.user.create({
+      data: {
+        email: parsedData.data?.username,
+        password: parsedData.data?.password,
+        name: parsedData.data?.name,
+      },
+    });
+    res.json({
+      userId: user.id,
+    });
+  } catch (e) {
+    res.status(411).json({
+      message: "User already exists try with different email",
+    });
+  }
 });
 
 app.post("/signin", (req, res) => {
